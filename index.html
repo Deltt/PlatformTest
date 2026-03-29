@@ -230,9 +230,9 @@
         credentials: 'include',
         headers: { 'Content-Type': 'application/octet-stream' },
       });
-      addLog('POST /login_request', `${res.status} ${res.statusText}`, res.ok);
+      addLog('POST /loginrequest', `${res.status} ${res.statusText}`, res.ok);
     } catch(e) {
-      addLog('POST /login_request', `network error: ${e.message}`, false);
+      addLog('POST /loginrequest', `network error: ${e.message}`, false);
     }
   }
 
