@@ -224,7 +224,7 @@
       document.getElementById('ln-pass').value
     );
     try {
-      const res = await fetch(`${BASE}/login_request`, {
+      const res = await fetch(`${BASE}/loginrequest`, {
         method: 'POST',
         body,
         credentials: 'include',
