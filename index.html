@@ -294,28 +294,28 @@
       }
     }
 
-    async function doMe() {
-      try {
-        const res = await fetch(`${BASE}/me`, {
-          credentials: 'include',
-        });
-        addLog('GET /me', `${res.status} ${res.statusText}`, res.ok);
-      } catch (e) {
-        addLog('GET /me', `network error: ${e.message}`, false);
-      }
-    }
-
     // async function doMe() {
     //   try {
     //     const res = await fetch(`${BASE}/me`, {
     //       credentials: 'include',
-    //       headers: { 'x-csrf-token': getCsrf() },
     //     });
     //     addLog('GET /me', `${res.status} ${res.statusText}`, res.ok);
     //   } catch (e) {
     //     addLog('GET /me', `network error: ${e.message}`, false);
     //   }
     // }
+
+    async function doMe() {
+      try {
+        const res = await fetch(`${BASE}/me`, {
+          credentials: 'include',
+          headers: { 'x-csrf-token': getCsrf() },
+        });
+        addLog('GET /me', `${res.status} ${res.statusText}`, res.ok);
+      } catch (e) {
+        addLog('GET /me', `network error: ${e.message}`, false);
+      }
+    }
 
     async function doCreateAccount() {
       const body = buildBody(
