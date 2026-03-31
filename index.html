@@ -272,10 +272,6 @@
       return buf;
     }
 
-    function getCsrf() {
-      return document.cookie.split('; ').find(r => r.startsWith('csrf_token='))?.split('=')[1] ?? '';
-    }
-
     async function doLogin() {
       const body = buildBody(
         document.getElementById('ln-user').value,
@@ -309,7 +305,6 @@
       try {
         const res = await fetch(`${BASE}/me`, {
           credentials: 'include',
-          headers: { 'x-csrf-token': getCsrf() },
         });
         addLog('GET /me', `${res.status} ${res.statusText}`, res.ok);
       } catch (e) {
@@ -327,7 +322,7 @@
           method: 'POST',
           body,
           credentials: 'include',
-          headers: { 'Content-Type': 'application/octet-stream', 'x-csrf-token': getCsrf() },
+          headers: { 'Content-Type': 'application/octet-stream' },
         });
         addLog('POST /createaccount', `${res.status} ${res.statusText}`, res.ok);
       } catch (e) {
@@ -340,7 +335,6 @@
         const res = await fetch(`${BASE}/deleteaccount`, {
           method: 'POST',
           credentials: 'include',
-          headers: { 'x-csrf-token': getCsrf() },
         });
         addLog('POST /deleteaccount', `${res.status} ${res.statusText}`, res.ok);
       } catch (e) {
