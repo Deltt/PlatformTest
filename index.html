@@ -306,7 +306,6 @@
     // }
 
     async function doMe() {
-      console.log('csrf:', getCsrf());
       try {
         const res = await fetch(`${BASE}/me`, {
           credentials: 'include',
