@@ -250,10 +250,12 @@
     }
 
     function getCsrfToken() {
-      return document.cookie
+      const token = document.cookie
         .split('; ')
         .find(r => r.startsWith('csrf_token='))
         ?.split('=')[1];
+      if (!token) console.error('CSRF token not found in cookies');
+      return token;
     }
 
     function addLog(method, msg, ok) {
@@ -312,7 +314,7 @@
       try {
         const res = await fetch(`${BASE}/me`, {
           credentials: 'include',
-          headers: { 'X-CSRF-Token': getCsrfToken() },
+          headers: { 'x-csrf-token': getCsrfToken() },
         });
         addLog('GET /me', `${res.status} ${res.statusText}`, res.ok);
       } catch (e) {
