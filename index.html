@@ -249,6 +249,13 @@
       return new Date().toTimeString().slice(0, 8);
     }
 
+    function getCsrfToken() {
+      return document.cookie
+        .split('; ')
+        .find(r => r.startsWith('csrf_token='))
+        ?.split('=')[1];
+    }
+
     function addLog(method, msg, ok) {
       const empty = log.querySelector('.empty');
       if (empty) empty.remove();
@@ -305,6 +312,7 @@
       try {
         const res = await fetch(`${BASE}/me`, {
           credentials: 'include',
+          headers: { 'X-CSRF-Token': getCsrfToken() },
         });
         addLog('GET /me', `${res.status} ${res.statusText}`, res.ok);
       } catch (e) {
@@ -335,6 +343,7 @@
         const res = await fetch(`${BASE}/deleteaccount`, {
           method: 'POST',
           credentials: 'include',
+          headers: { 'X-CSRF-Token': getCsrfToken() },
         });
         addLog('POST /deleteaccount', `${res.status} ${res.statusText}`, res.ok);
       } catch (e) {
